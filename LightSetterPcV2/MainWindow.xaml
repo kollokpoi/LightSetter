@@ -1,0 +1,74 @@
+﻿<Window x:Class="LightSetterPcV2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LightSetterPcV2"
+        mc:Ignorable="d"
+        xmlns:hw="http://schemas.hpod9.com/haley/wpf"
+        xmlns:hm="http://schemas.hpod9.com/haley/mvvm"
+        Title="MainWindow" Height="450" MinWidth="300" Width="800">
+    <Window.Resources>
+        <Style x:Key="CircleBorder"  TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter x:Name="brush" Property="BorderBrush" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="CornerRadius" Value="10 2 10 2"/>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="back"  Background="#FF292929">
+        <Grid x:Name="controlGrid">
+            <Border Style="{DynamicResource CircleBorder}" Height="74" Width="117" Margin="10,10,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Yellow" MouseDown="YelowColorPick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="83" Width="96" Margin="10,88,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="#FFFF00A4" MouseDown="PurpleColorPick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="73" Width="126" Margin="132,10,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="White" MouseDown="WhiteColorClick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="42" Width="110" Margin="111,129,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Lime" MouseDown="GreenColorClick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="73" Width="79" Margin="263,10,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Red" MouseDown="RedColorClick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="83" Width="116" Margin="226,88,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Blue" MouseDown="BlueColorClick"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="36" Width="110" Margin="111,88,0,0" CornerRadius="0 10 0 10" Background="Black" MouseDown="BlackColorPick">
+                <Label Content="Цвета" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="16"/>
+            </Border>
+            <Border x:Name="activeColor" Style="{DynamicResource CircleBorder}" Height="51" Width="332" Margin="10,176,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="#FF001BFF"/>
+            <CheckBox x:Name="turnOffCheck" Style="{DynamicResource SwitchCheck}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Height="22" Width="74" Background="Red" Checked="turnOffCheck_Checked" Unchecked="turnOffCheck_Unchecked"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="83" Width="116" Margin="10,232,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Blue" MouseDown="setRainbow"/>
+            <Border Style="{DynamicResource CircleBorder}" Height="83" Width="116" Margin="131,232,0,0" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Background="Blue" MouseDown="setSolid"/>
+        </Grid>
+        <Border x:Name="appBtn" BorderBrush="Black" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 0 0" BorderThickness="2" Background="#FF1300FF" CornerRadius="4 0 0 8" MouseDown="OpenMouseDown">
+            <Label Content="Приложение" Foreground="White" Padding="0" FontWeight="Bold" FontSize="16" Margin="10 0 10 2" HorizontalAlignment="Left"/>
+        </Border>
+        <Border x:Name="settingsBtn" BorderBrush="Black" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 48 0 0" BorderThickness="2" Background="#FF1300FF" CornerRadius="4 0 0 8" MouseDown="OpenMouseDown">
+            <Label Content="Лента" Foreground="White" Padding="0" FontWeight="Bold" FontSize="16" Margin="10 0 10 2" HorizontalAlignment="Left"/>
+        </Border>
+        <Border x:Name="appSettings" BorderThickness="1 0 0 0"  Width="300" HorizontalAlignment="Right" Margin="0,0,-300,0">
+            <Grid>
+                <CheckBox x:Name="themeCheck" Style="{DynamicResource SwitchCheck}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10" Height="22" Width="74" Checked="CheckBox_Checked" IsChecked="False" Background="Black" Unchecked="themeCheck_Unchecked"/>
+            </Grid>
+        </Border>
+        <ScrollViewer BorderThickness="1 0 0 0" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right" Width="300" Margin="0,0,-300,0" x:Name="settingsGrid">
+            <StackPanel>
+                <Label x:Name="lightTitleLb" Content="Яркость" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"  FontSize="16" VerticalAlignment="Top"/>
+                <Grid Margin="16 5 10 0">
+                    <Slider Style="{DynamicResource SliderStyle}" x:Name="lightSlider" Maximum="255" Minimum="0" SmallChange="1" AutoToolTipPlacement="TopLeft" Margin="0 0 40 0"/>
+                    <Label x:Name="lightLb" Content="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                </Grid>
+                <Label x:Name="countTitleLb" Content="Количество" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"  FontSize="16" VerticalAlignment="Top"/>
+                <Grid Margin="16 5 10 0">
+                    <Slider Style="{DynamicResource SliderStyle}" x:Name="countSlider" Maximum="30"
+                    Minimum="0"  SmallChange="1" 
+                    AutoToolTipPlacement="TopLeft" 
+                    Margin="0 0 40 0"/>
+                    <Label x:Name="countLb" Content="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                </Grid>
+                <Label x:Name="startTitleLb" Content="Начало" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"  FontSize="16" VerticalAlignment="Top"/>
+                <Grid Margin="16 5 10 0">
+                    <Slider Style="{DynamicResource SliderStyle}" x:Name="startSlider" Maximum="30"
+                    Minimum="0" SmallChange="1" 
+                    AutoToolTipPlacement="TopLeft" 
+                    Margin="0,0,40,0" HorizontalAlignment="Right" Width="234" />
+                    <Label x:Name="startLb" Content="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                </Grid>
+                <hw:ColorPicker x:Name="color" Margin="10 10 10 0"  HideRGBComponents="True"  HideColorPalette="True" Background="{x:Null}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
